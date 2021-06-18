@@ -1,0 +1,71 @@
+def great():
+    print("------------------------")
+    print("Welcome to the Game")
+    print("========================")
+    print("Формат ввода: ")
+    print("1число- номер строки")
+    print("2число- номер столбца")
+    print("------------------------")
+great()
+
+field = [[" ", " ", " "],
+         [" ", " ", " "],
+         [" ", " ", " "]]
+
+def field_out():
+    print("----------")
+    print(f"  0 1 2")
+    print(f"0 {field[0][0]} {field[0][1]} {field[0][2]}")
+    print(f"1 {field[1][0]} {field[1][1]} {field[1][2]}")
+    print(f"2 {field[2][0]} {field[2][1]} {field[2][2]}")
+    print("----------")
+field_out()
+
+ 
+def answer():
+    x,y= map(int, input("Ваш ход:" ).split())
+    return x, y
+
+ 
+def check_win():
+    values_win = (((0, 0), (0, 1), (0, 2)), ((1, 0), (1, 1), (1, 2)), ((2, 0), (2, 1), (2, 2)),
+                 ((0, 2), (1, 1), (2, 0)), ((0, 0), (1, 1), (2, 2)), ((0, 0), (1, 0), (2, 0)),
+                 ((0, 1), (1, 1), (2, 1)), ((0, 2), (1, 2), (2, 2)))
+ 
+    for i in values_win:
+        value = []
+        for t in i:
+            value.append(field[t[0]][t[1]])
+        if value == ["X", "X", "X"]:
+            print("Вы победили!-X")
+            return True
+        elif value == ["0", "0", "0"]:
+            print("Вы победили!-0")
+            return True
+    return False
+ 
+count = 0
+while True:
+    count += 1
+    field_out()
+    if count % 2 == 1:
+        print(" Ходит крестик!")
+    elif count % 2 != 1:
+        print(" Ходит нолик!")
+    elif count == 9:
+        print("Ничья")
+        break
+    
+ 
+    x, y = answer()
+    if count % 2 == 1:
+        field[x][y] = "X"
+    else:
+        field[x][y] = "0"
+ 
+    if check_win():
+        break
+    
+    if count == 9:
+        print("Ничья")
+        break
